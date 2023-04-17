@@ -9,7 +9,7 @@ resource "citrixadc_nsfeature" "gw_nsfeature" {
 # Add Citrix GW vServer
 #####
 resource "citrixadc_vpnvserver" "gw_vserver" {
-  name            = "gw_vs_${var.adc-gw.name}.${var.adc-gw.fqdn_ext}_${var.adc-gw.servicetype}_${var.adc-gw.port}"
+  name            = "gw_vs_${var.adc-gw.name}.${var.adc-gw.fqdn_ext}_${var.adc-gw.servicetype}_443"
   servicetype     = var.adc-gw.servicetype
   ipv46           = var.adc-gw.ip
   port            = var.adc-gw.port
