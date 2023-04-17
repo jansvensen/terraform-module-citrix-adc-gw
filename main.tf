@@ -140,7 +140,9 @@ resource "citrixadc_vpnvserver_vpnsessionpolicy_binding" "gw_vserver_vpnsessionp
 
 resource "citrixadc_authenticationldapaction" "gw_authenticationldapaction" {
   count              = length(var.adc-gw-authenticationldapaction.name)
-  name               = element(var.adc-gw-authenticationldapaction["name"],count.index)
+
+  
+  name               = "auth_act_${element(var.adc-gw-authenticationldapaction["type"],count.index)}_${var.adc-gw.fqdn_int}"
   servername         = element(var.adc-gw-authenticationldapaction["servername"],count.index)
   ldapbase           = element(var.adc-gw-authenticationldapaction["ldapBase"],count.index)
   ldapbinddn         = element(var.adc-gw-authenticationldapaction["ldapBindDn"],count.index)
