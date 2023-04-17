@@ -9,7 +9,7 @@ resource "citrixadc_nsfeature" "gw_nsfeature" {
 # Add Citrix GW vServer
 #####
 resource "citrixadc_vpnvserver" "gw_vserver" {
-  name            = var.adc-gw.name
+  name            = "gw_vs_${var.adc-gw.name}.${var.adc-gw.fqdn_ext}_${var.adc-gw.servicetype}_${var.adc-gw.port}"
   servicetype     = var.adc-gw.servicetype
   ipv46           = var.adc-gw.ip
   port            = var.adc-gw.port
@@ -36,7 +36,7 @@ resource "citrixadc_sslvserver" "gw_vserver_sslprofile" {
 #####
 resource "citrixadc_vpnvserver_staserver_binding" "gw_vserver_staserver_binding" {
   name           = citrixadc_vpnvserver.gw_vserver.name
-  staserver      = var.adc-gw.staserver
+  staserver      = "http://${var.adc-gw.staserver}.${var.adc-gw.fqdn_int}"
   staaddresstype = var.adc-gw.staaddresstype
 
   depends_on = [
@@ -57,9 +57,9 @@ resource "citrixadc_vpnsessionaction" "gw_sess_act_receiver" {
   sesstimeout = "2880"
   sso = "ON"
   ssocredential = "PRIMARY"
-  storefronturl = "${var.adc-gw.wihome}"
+  storefronturl = "http://${var.adc-gw.citrix-backend}.${var.adc-gw.fqdn_int}/Citrix/StoreWeb/"
   transparentinterception = "OFF"
-  wihome = "${var.adc-gw.wihome}"
+  wihome = "http://${var.adc-gw.citrix-backend}.${var.adc-gw.fqdn_int}/Citrix/StoreWeb/"
   windowsautologon = "ON"
 
   depends_on = [
@@ -83,7 +83,7 @@ resource "citrixadc_vpnsessionaction" "gw_sess_act_receiver_web" {
   sesstimeout = "2880"
   sso = "ON"
   ssocredential = "PRIMARY"
-  wihome = "${var.adc-gw.wihome}"
+  wihome = "http://${var.adc-gw.citrix-backend}.${var.adc-gw.fqdn_int}/Citrix/StoreWeb/"
   windowsautologon = "ON"
   wiportalmode = "NORMAL"
 
