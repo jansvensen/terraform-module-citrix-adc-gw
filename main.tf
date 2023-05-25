@@ -57,9 +57,9 @@ resource "citrixadc_vpnsessionaction" "gw_sess_act_receiver" {
   sesstimeout = "2880"
   sso = "ON"
   ssocredential = "PRIMARY"
-  storefronturl = "http://${var.adc-gw.citrix-backend}.${var.adc-gw.fqdn_int}/Citrix/StoreWeb/"
+  storefronturl = "${var.adc-gw.citrix-backend}"
   transparentinterception = "OFF"
-  wihome = "http://${var.adc-gw.citrix-backend}.${var.adc-gw.fqdn_int}/Citrix/StoreWeb/"
+  wihome = "${var.adc-gw.citrix-backend}"
   windowsautologon = "ON"
 
   depends_on = [
@@ -83,7 +83,7 @@ resource "citrixadc_vpnsessionaction" "gw_sess_act_receiver_web" {
   sesstimeout = "2880"
   sso = "ON"
   ssocredential = "PRIMARY"
-  wihome = "http://${var.adc-gw.citrix-backend}.${var.adc-gw.fqdn_int}/Citrix/StoreWeb/"
+  wihome = "${var.adc-gw.citrix-backend}"
   windowsautologon = "ON"
   wiportalmode = "NORMAL"
 
